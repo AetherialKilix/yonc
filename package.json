@@ -23,6 +23,9 @@
   "dependencies": {
     "morphdom": "^2.7.4"
   },
+  "devDependencies": {
+    "esbuild": "^0.25.2"
+  },
   "scripts": {
     "build": "node build.js"
   }
