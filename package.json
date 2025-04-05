@@ -1,0 +1,29 @@
+{
+  "name": "yonc",
+  "version": "1.0.0",
+  "description": "Lightweight, React-like UI components built on native Web Components with zero compilation.",
+  "type": "module",
+  "exports": "./index.js",
+  "main": "./index.js",
+  "keywords": [
+    "webcomponents",
+    "react-like",
+    "ui",
+    "native",
+    "esm",
+    "frontend",
+    "zero-config"
+  ],
+  "author": "aetherialkilix",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aetherialkilix/ycomponents.git"
+  },
+  "dependencies": {
+    "morphdom": "^2.7.4"
+  },
+  "scripts": {
+    "build": "node build.js"
+  }
+}

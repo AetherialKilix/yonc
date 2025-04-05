@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>YFunctionComponent example</title>
+    <!-- this example shows you not only how function components reduce boilerplate, but also that you can create simple -->
+    <!-- components right here in your html file without much issue -->
+    <!-- note: the script type must be set to module. afaik there is a way to work around this, but i would not bother. -->
+    <!-- there is no need to touch the class after it's defined, as you can simply document.createElement('my-button') -->
+    <script type="module">
+        // import the generator function
+        import {YFunctionComponent} from "../index.mjs";
+        // note how the function is the second argument for the define method?
+        // that's because it actually returns a new class. not a constructor, not an object, but a whole new class
+        // the YFunctionComponent function takes a render function that is simply delegated to the render function of the class
+        customElements.define("example-counter", YFunctionComponent(({ $, useState }) => {
+            // states work the same
+            const [clicks, setClicks] = useState(0);
+            // rendering works the same
+            return $`<button>You clicked the button ${clicks} times</button>`;
+        }))
+    </script>
+</head>
+<body>
+    <my-button></my-button>
+</body>
+</html>

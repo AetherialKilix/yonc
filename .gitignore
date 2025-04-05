@@ -1,0 +1,17 @@
+# Node stuff
+node_modules/
+dist/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS cruft
+.DS_Store
+Thumbs.db
+
+# IDE settings (optional)
+.vscode/
+.idea/
+*.sw?

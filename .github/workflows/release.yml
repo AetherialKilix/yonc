@@ -1,0 +1,30 @@
+name: Build and attach release artifacts
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build the library
+        run: npm run build
+
+      - name: Upload build artifacts to release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: dist/*.mjs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
