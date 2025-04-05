@@ -48,5 +48,5 @@ https://github.com/AetherialKilix/yonc/blob/main/examples/
 
 ## 📄 License
 
-MIT © 2024 Your Name (your-handle)
+MIT © 2025 Kilian Mauler (AetherialKilix)
 
