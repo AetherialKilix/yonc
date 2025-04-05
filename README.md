@@ -8,13 +8,13 @@ Just `<script type="module">` and go.
 
 ## Features
 
-- 💡 **Fully native**: Built on the WebComponent standard (extends `HTMLElement`)
-- 🧠 **React-like state & effect hooks** (`useState`, `useEffect`)
-- 🔌 **Supports JSX-style templating** using tagged template literals
-- 🧹 **Supports both class and function components**
-- 💾 **Form-aware components** using the standard `FormAssociated` API
-- 📆 **No build step required** for consumers
-- ⚡ **Just import and go**
+- **Fully native**: Built on the WebComponent standard (extends `HTMLElement`)
+- **React-like state & effect hooks** (`useState`, `useEffect`)
+- **Supports JSX-style templating** using tagged template literals
+- **Supports both class and function components**
+- **Form-aware components** using the standard `FormAssociated` API
+- **No build step required** for consumers
+- **Just import and go**
 
 ---
 
@@ -41,26 +41,10 @@ import { YComponent, YFunctionComponent, YFormComponent } from 'yonc';
 
 ---
 
-## Example: Form Component with Custom Input
+## Examples
+Check out the examples here:
+https://github.com/AetherialKilix/yonc/blob/main/examples/
 
-This shows how to build a full WebComponent that supports reactive state, dynamic attributes, and native HTML form integration:
-
-[ SHOW INPUT.MJS HERE]
-
-💡 This component:
-- Updates its own internal state using `useState`
-- Uses `useEffect` to respond to changes in the `value` attribute
-- Sets its `formValue` so it works with standard HTML `<form>` submissions
-
----
-
-## Example: Function Components
-
-Yonc also supports a function component model (like React) via YFunctionComponent. This lets you create components with minimal boilerplate:
-
-[ SHOW YFUNCTIONCOMPONENTS.HTML HERE ]
-
----
 
 ## 📄 License
 
