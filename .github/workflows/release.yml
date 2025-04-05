@@ -7,6 +7,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # Needed to push back changes
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
@@ -21,6 +24,24 @@ jobs:
 
       - name: Build the library
         run: npm run build
+
+      - name: Update version in package.json
+        run: |
+          VERSION="${{ github.ref_name }}"
+          node -e "
+            const fs = require('fs');
+            const pkg = JSON.parse(fs.readFileSync('package.json'));
+            pkg.version = VERSION.startsWith('v') ? VERSION.slice(1) : VERSION;
+            fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
+          "
+
+      - name: Commit dist/ and package.json to the repository
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add dist/*.mjs package.json
+          git commit -m "chore: update dist and version for release ${{ github.ref_name }}" || echo "No changes to commit"
+          git push origin HEAD:${{ github.ref_name }}
 
       - name: Upload build artifacts to release
         uses: softprops/action-gh-release@v1
