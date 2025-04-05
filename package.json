@@ -12,13 +12,14 @@
     "native",
     "esm",
     "frontend",
-    "zero-config"
+    "zero-config",
+    "browser"
   ],
   "author": "aetherialkilix",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/aetherialkilix/ycomponents.git"
+    "url": "https://github.com/aetherialkilix/yonc.git"
   },
   "dependencies": {
     "morphdom": "^2.7.4"
