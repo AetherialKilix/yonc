@@ -27,11 +27,11 @@ jobs:
 
       - name: Update version in package.json
         run: |
-          VERSION="${{ github.ref_name }}"
           node -e "
+            const gh_version = '${{ github.ref_name }}';
             const fs = require('fs');
             const pkg = JSON.parse(fs.readFileSync('package.json'));
-            pkg.version = VERSION.startsWith('v') ? VERSION.slice(1) : VERSION;
+            pkg.version = gh_version.startsWith('v') ? gh_version.slice(1) : gh_version;
             fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
           "
 
