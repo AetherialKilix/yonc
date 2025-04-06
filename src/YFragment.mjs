@@ -29,6 +29,7 @@ export default class YFragment {
             const attributes = [...node.attributes];
             for (const attr of attributes) {
                 const { name, nodeValue } = attr;
+                if (! nodeValue) continue;
                 const match = nodeValue.match(attributeRegex);
                 if (!match) continue;
                 const value = args[match[1]];

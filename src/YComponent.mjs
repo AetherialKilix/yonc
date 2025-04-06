@@ -72,12 +72,7 @@ export default class YComponent extends HTMLElement {
     }
     disconnectedCallback() { this.#connected = false; }
     attributeChangedCallback(name, oldValue, newValue) {
-        console.log("attributeChangedCallback", name, oldValue, newValue)
-        if (!this.#connected) {
-            console.log("skipped rendering attribute changed:", name);
-            return;
-        }
-        console.log("rendering attribute changed:", name);
+        if (!this.#connected) return;
         this.#doRender();
     }
 
