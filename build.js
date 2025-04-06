@@ -30,5 +30,5 @@ await build({
     ...commonConfig,
     outfile: outfile("nomorph"),
     external: ["morphdom"],
-    minify: false
+    minify: true
 });

@@ -16,7 +16,7 @@ export default class YComponent extends HTMLElement {
         if (typeof this.#states[index] === "undefined") this.#states[index] = initial;
         const states = this.#states;
         return [
-            new Proxy(wrap(this.#states[index]), { get() { return () => states[index]}}),
+            new Proxy(wrap(this.#states[index]) || {}, { get() { return () => states[index]}}),
             (newValue) => {
                 // allow for the fancy syntax
                 if (typeof newValue === "function") newValue = newValue(this.#states[index]);
@@ -96,12 +96,12 @@ function shallowEquals(a, b) {
 
 function wrap(primitive) {
     switch (typeof primitive) {
-        case "boolean": return new Boolean(primitive)
-        case "number": return new Number(primitive)
-        case "string": return new String(primitive)
-        case "function": return new Function(primitive)
-        case "bigint": return new BigInt(primitive)
-        // symbols, objects and "undefined"
-        default: return primitive
+        case "boolean": return new Boolean(primitive);
+        case "number": return new Number(primitive);
+        case "string": return new String(primitive);
+        case "function": return new Function(primitive);
+        case "bigint": return new BigInt(primitive);
+        case "object": return primitive;
+        default: return {}
     }
 }
