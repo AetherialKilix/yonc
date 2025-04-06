@@ -51,6 +51,7 @@ export default class YComponent extends HTMLElement {
                 body = this.render.call(this, {
                     useState: (initialValue) => this.#useState(initialValue, state++, () => { invalid = true }),
                     useEffect: (block, deps = []) => this.#useEffect(block, deps, effect++),
+                    shadowRoot: this.#shadow,
                     children: Array.from(this.children),
                     $: (...args) => new YFragment(...args)
                 });
