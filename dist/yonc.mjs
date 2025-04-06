@@ -580,7 +580,7 @@ var _YComponent = class _YComponent extends HTMLElement {
       if (typeof __privateGet(this, _states)[index] === "undefined") __privateGet(this, _states)[index] = initial;
       const states = __privateGet(this, _states);
       return [
-        new Proxy(wrap(__privateGet(this, _states)[index]), { get() {
+        new Proxy(wrap(__privateGet(this, _states)[index]) || {}, { get() {
           return () => states[index];
         } }),
         (newValue) => {
@@ -680,9 +680,10 @@ function wrap(primitive) {
       return new Function(primitive);
     case "bigint":
       return new BigInt(primitive);
-    // symbols, objects and "undefined"
-    default:
+    case "object":
       return primitive;
+    default:
+      return {};
   }
 }
 

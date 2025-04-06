@@ -1,6 +1,6 @@
 {
   "name": "yonc",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Lightweight, React-like UI components built on native Web Components with zero compilation.",
   "type": "module",
   "exports": "./index.js",
