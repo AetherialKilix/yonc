@@ -1,14 +1,20 @@
-name: Build and attach release artifacts
+name: Release
 
 on:
-  release:
-    types: [created]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version number (e.g. v1.2.3)'
+        required: true
+      message:
+        description: 'Release description/message'
+        required: true
 
 jobs:
-  build:
+  release:
     runs-on: ubuntu-latest
     permissions:
-      contents: write # Needed to push back changes
+      contents: write # Needed to commit and push changes
 
     steps:
       - name: Checkout repo
@@ -19,33 +25,38 @@ jobs:
         with:
           node-version: 20
 
+      - name: Update version in package.json
+        run: |
+          node -e "
+            const gh_version = '${{ github.event.inputs.version }}';
+            const fs = require('fs');
+            const pkg = JSON.parse(fs.readFileSync('package.json'));
+            pkg.version = gh_version.startsWith('v') ? gh_version.slice(1) : gh_version;
+            fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
+          "
+
       - name: Install dependencies
         run: npm install
 
       - name: Build the library
         run: npm run build
 
-      - name: Update version in package.json
-        run: |
-          VERSION="${{ github.ref_name }}"
-          node -e "
-            const fs = require('fs');
-            const pkg = JSON.parse(fs.readFileSync('package.json'));
-            pkg.version = VERSION.startsWith('v') ? VERSION.slice(1) : VERSION;
-            fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
-          "
-
       - name: Commit dist/ and package.json to the repository
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add dist/*.mjs package.json
-          git commit -m "chore: update dist and version for release ${{ github.ref_name }}" || echo "No changes to commit"
-          git push origin HEAD:${{ github.ref_name }}
+          git commit -m "chore: release ${{ github.event.inputs.version }}" || echo "No changes to commit"
+          git tag -a "${{ github.event.inputs.version }}" -m "${{ github.event.inputs.message }}"
+          git push origin HEAD
+          git push origin "${{ github.event.inputs.version }}"
 
-      - name: Upload build artifacts to release
+      - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
+          tag_name: ${{ github.event.inputs.version }}
+          name: ${{ github.event.inputs.version }}
+          body: ${{ github.event.inputs.message }}
           files: dist/*.mjs
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
