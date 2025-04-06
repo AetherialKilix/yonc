@@ -45,7 +45,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add dist/*.mjs package.json
+          git add dist/*.mjs package.json -f
           git commit -m "chore: release ${{ github.event.inputs.version }}" || echo "No changes to commit"
           git tag -a "${{ github.event.inputs.version }}" -m "${{ github.event.inputs.message }}"
           git push origin HEAD
